@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Asger Kjeldsen\.Rider2018.1\system\resharper-host\local\Transient\ReSharperHost\v12\SolutionCaches\_ProjectB.1440514815.00" t="ExcludeRecursive" />
-    <e p="C:\Users\Asger Kjeldsen\RiderProjects\linalg\ProjectB\ProjectB" t="IncludeRecursive">
+    <e p="C:\Users\Asger Kjeldsen\.Rider2018.1\system\resharper-host\local\Transient\ReSharperHost\v12\SolutionCaches\_ProjectB.-1560297868.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Asger Kjeldsen\RiderProjects\linalg\ProjectB" t="IncludeRecursive">
       <e p="bin" t="ExcludeRecursive" />
       <e p="Core" t="Include">
         <e p="Matrix.cs" t="Include" />
