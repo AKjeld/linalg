@@ -1,0 +1,6 @@
+C:\Users\Asger Kjeldsen\RiderProjects\ProjectB\ProjectB\bin\Release\ProjectB.exe
+C:\Users\Asger Kjeldsen\RiderProjects\ProjectB\ProjectB\bin\Release\ProjectB.pdb
+C:\Users\Asger Kjeldsen\RiderProjects\ProjectB\ProjectB\obj\Release\ProjectB.csprojAssemblyReference.cache
+C:\Users\Asger Kjeldsen\RiderProjects\ProjectB\ProjectB\obj\Release\ProjectB.csproj.CoreCompileInputs.cache
+C:\Users\Asger Kjeldsen\RiderProjects\ProjectB\ProjectB\obj\Release\ProjectB.exe
+C:\Users\Asger Kjeldsen\RiderProjects\ProjectB\ProjectB\obj\Release\ProjectB.pdb
