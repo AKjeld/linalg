@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Globalization;
+using System.Linq;
 using System.Security.AccessControl;
+using System.Threading;
 using Core;
 
 namespace ProjectC
@@ -65,7 +68,7 @@ namespace ProjectC
             // Find determinant for submatrices for each entry in first row.
             for (int j = 0; j < a.M_Rows; j++)
             {
-                // Finds cofactor
+                // Finds cofactor. Matrix is indexed differently. row 1, column 1 is a[0,0] etc.
                 double c = Math.Pow(-1, j) * Determinant(a.SquareSubMatrix(0,j));
                 retSum += a[0,j]*c;
             }
@@ -93,7 +96,72 @@ namespace ProjectC
         /// </returns>
         public static Tuple<Matrix, Matrix> GramSchmidt(this Matrix a)
         {
-            throw new NotImplementedException();
+            // Q and R. Specifically named q and r for transparent implementation from algorithm on p. 229.
+            Vector[] q = new Vector[a.N_Cols];
+            Matrix r = new Matrix(a.N_Cols,a.N_Cols);
+            
+            // Matrices are indexed differently in this implementation compared to the pseudocode on p. 229.
+            for (int j = 0; j < a.N_Cols; j++)
+            {
+                q[j] = a.Column(j);
+                
+                for (int i = 0; i < j; i++)
+                {
+                    // No need to transpose q[i] due to how dotted vectors work in this implementation.
+                    r[i,j] = q[i] * a.Column(j);
+                    q[j] = q[j] - r[i, j] * q[i];
+                }
+                // Ensures no division by 0
+                if(Math.Abs(q[j].Norm()) <= 1e-10 ) continue;
+                r[j,j] = q[j].Norm();
+                q[j] = q[j] * (1/r[j, j]);
+            }
+            
+            // Converts q to matrix and returns tuple with Q and R.
+            return new Tuple<Matrix, Matrix>(VectorColCombine(q),r);
         }
+        
+        /// <summary>
+        /// Calculates vector norm
+        /// </summary>
+        /// <param name="v">
+        /// Vector to be processed.
+        /// </param>
+        /// <returns>
+        /// Vector norm.
+        /// </returns>
+        private static double Norm(this Vector v)
+        {
+            double ret = 0.0;
+            for (int i = 0; i < v.Size; i++)
+            {
+                ret += v[i] * v[i];
+            }
+            return Math.Sqrt(ret);
+        }
+
+        /// <summary>
+        /// Converts list of vectors representing columns to an array.
+        /// </summary>
+        /// <param name="vecArr">
+        /// List of vectors representing columns in an array.
+        /// </param>
+        /// <returns>
+        /// Matrix created from the input array.
+        /// </returns>
+        private static Matrix VectorColCombine(Vector[] vecArr)
+        {
+            var colCount = vecArr.Length;
+            var rowCount = colCount > 0 ? vecArr[0].Size : 0;
+            
+            var retDoubleArr = new double[rowCount, colCount];
+            
+            for (int i = 0; i < rowCount; i++)
+                for (int j = 0; j < colCount; j++)
+                    retDoubleArr[i, j] = vecArr[j][i];
+            
+            return new Matrix(retDoubleArr);    
+        }
+
     }
 }
