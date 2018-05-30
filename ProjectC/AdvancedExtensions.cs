@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.AccessControl;
 using Core;
 
 namespace ProjectC
@@ -22,7 +23,19 @@ namespace ProjectC
         /// <returns>The resulting (N - 1)-by-(N - 1) submatrix.</returns>
         public static Matrix SquareSubMatrix(this Matrix a, int i, int j)
         {
-            throw new NotImplementedException();
+            // Finds dimensions of return matrix.
+            // Generates matrix with new dimensions
+            Matrix retMatrix = new Matrix(a.M_Rows - 1,a.N_Cols - 1);
+
+            // Fills each cell of return matrix
+            for (int q = 0; q < retMatrix.M_Rows; q++)
+                for (int k = 0; k < retMatrix.N_Cols; k++)
+                    
+                    // Fills cells from matrix a.
+                    // Takes one index higher for rows and cols if row or col has been removed.
+                    retMatrix[q, k] = a[q >= i ? q + 1 : q, k >= j ? k + 1: k];
+
+            return retMatrix;
         }
 
         /// <summary>
@@ -43,7 +56,21 @@ namespace ProjectC
         /// <returns>The determinant of the matrix</returns>
         public static double Determinant(this Matrix a)
         {
-            throw new NotImplementedException();
+            // Recursive step. If 1x1 matrix is found a[0,0] is the determinant
+            if (a.M_Rows <= 1) return a[0,0];
+            
+            // Running sum of current matrix' determinant
+            var retSum = 0.0;
+            
+            // Find determinant for submatrices for each entry in first row.
+            for (int j = 0; j < a.M_Rows; j++)
+            {
+                // Finds cofactor
+                double c = Math.Pow(-1, j) * Determinant(a.SquareSubMatrix(0,j));
+                retSum += a[0,j]*c;
+            }
+
+            return retSum;
         }
 
         /// <summary>
