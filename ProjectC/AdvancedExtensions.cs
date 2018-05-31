@@ -36,7 +36,10 @@ namespace ProjectC
                     
                     // Fills cells from matrix a.
                     // Takes one index higher for rows and cols if row or col has been removed.
-                    retMatrix[q, k] = a[q >= i ? q + 1 : q, k >= j ? k + 1: k];
+                    retMatrix[q, k] = a[
+                        q >= i ? q + 1 : q, 
+                        k >= j ? k + 1 : k
+                    ];
 
             return retMatrix;
         }
@@ -63,7 +66,7 @@ namespace ProjectC
             if (a.M_Rows <= 1) return a[0,0];
             
             // Running sum of current matrix' determinant
-            var retSum = 0.0;
+            double retSum = 0.0;
             
             // Find determinant for submatrices for each entry in first row.
             for (int j = 0; j < a.M_Rows; j++)
@@ -133,13 +136,10 @@ namespace ProjectC
         private static double Norm(this Vector v)
         {
             double ret = 0.0;
-            for (int i = 0; i < v.Size; i++)
-            {
-                ret += v[i] * v[i];
-            }
+            for (int i = 0; i < v.Size; i++) ret += v[i] * v[i];
             return Math.Sqrt(ret);
         }
-
+    
         /// <summary>
         /// Converts list of vectors representing columns to an array.
         /// </summary>
@@ -151,10 +151,10 @@ namespace ProjectC
         /// </returns>
         private static Matrix VectorColCombine(Vector[] vecArr)
         {
-            var colCount = vecArr.Length;
-            var rowCount = colCount > 0 ? vecArr[0].Size : 0;
+            int colCount = vecArr.Length;
+            int rowCount = colCount > 0 ? vecArr[0].Size : 0;
             
-            var retDoubleArr = new double[rowCount, colCount];
+            double[,] retDoubleArr = new double[rowCount, colCount];
             
             for (int i = 0; i < rowCount; i++)
                 for (int j = 0; j < colCount; j++)
