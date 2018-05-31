@@ -54,7 +54,13 @@ namespace ProjectA
         /// <returns>The M-sized vector a * v.</returns>
         public static Vector Product(this Matrix a, Vector v)
         {
-            throw new NotImplementedException();
+            var retval = new Vector(a.M_Rows);
+            for (var i = 0; i < retval.Size; i++)
+            {
+                retval[i] = a.Row(i) * v;
+                
+            }
+            return retval;
         }
 
         /// <summary>
@@ -73,7 +79,15 @@ namespace ProjectA
         /// <returns>The M-by-P matrix a * b.</returns>
         public static Matrix Product(this Matrix a, Matrix b)
         {
-            throw new NotImplementedException();
+            var retval = new Matrix(a.M_Rows,b.N_Cols);
+            for (var i = 0; i < retval.M_Rows; i++)
+            {
+                for (int j = 0; j < retval.N_Cols; j++)
+                {
+                    retval[i, j] = a.Row(i) * b.Column(j);
+                }
+            }
+            return retval;
         }
 
         /// <summary>
@@ -90,7 +104,17 @@ namespace ProjectA
         /// <returns>The N-by-M matrix a^T.</returns>
         public static Matrix Transpose(this Matrix a)
         {
-            throw new NotImplementedException();
+            var retval = new Matrix(a.N_Cols,a.M_Rows);
+            for (int i = 0; i < retval.M_Rows; i++)
+            {
+                for (int j = 0; j < retval.N_Cols; j++)
+                {
+                    retval[i, j] = a[j, i];
+                }
+            }
+
+            return retval;
+
         }
 
         /// <summary>
@@ -107,7 +131,13 @@ namespace ProjectA
         /// <returns>The Euclidean norm of the vector.</returns>
         public static double VectorNorm(this Vector v)
         {
-            throw new NotImplementedException();
+            var retval = new double();
+            for (int i = 0; i < v.Size; i++)
+            {
+                retval += v[i] * v[i];
+            }
+
+            return Math.Sqrt(retval);
         }
     }
 }
